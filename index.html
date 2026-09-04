@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rosetta Ateliê | Costura Criativa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --rosa-claro: #fbf0f3;
+            --rosa-clarissimo: #fff5f7;
+            --rosa-claro: #fbe3eb;
             --rosa-suave: #f4c2c2;
             --rosa-medio: #e8a5b8;
             --rosa-escuro: #b85b75;
@@ -26,189 +27,287 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--rosa-claro);
+            background-color: var(--rosa-clarissimo);
             color: var(--texto);
             overflow-x: hidden;
-            background-image: radial-gradient(#f4c2c2 0.75px, transparent 0.75px);
-            background-size: 24px 24px;
+            position: relative;
+        }
+
+        /* Fundo com Pétalas Animadas */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            color: var(--rosa-medio);
+            opacity: 0.4;
+            font-size: 1.2rem;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
 
-        /* Animações Keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
         /* Header */
         header {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            padding: 1rem 5%;
+            box-shadow: 0 4px 20px rgba(184, 91, 117, 0.08);
+            padding: 1rem 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .logo h1 {
             color: var(--rosa-escuro);
             font-size: 1.6rem;
+            letter-spacing: 0.5px;
         }
 
         .logo span {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #888;
             font-family: 'Poppins', sans-serif;
             font-weight: 300;
+            display: block;
         }
 
         nav a {
             text-decoration: none;
             color: var(--texto);
-            margin-left: 20px;
+            margin-left: 22px;
             font-weight: 500;
+            position: relative;
             transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--rosa-escuro);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         nav a:hover {
             color: var(--rosa-escuro);
         }
 
-        /* Banner Hero */
+        /* Hero / Destaque Principal */
         .hero {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 4rem 8%;
-            min-height: 80vh;
-            animation: fadeIn 1.2s ease-out;
+            min-height: 85vh;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-text {
-            max-width: 500px;
+            max-width: 520px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .badge-flor {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--rosa-claro);
+            color: var(--rosa-escuro);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+            animation: pulseSoft 2.5s infinite;
         }
 
         .hero-text h2 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: var(--rosa-escuro);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             line-height: 1.2;
         }
 
         .hero-text p {
             margin-bottom: 2rem;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #666;
+            line-height: 1.6;
         }
 
         .btn-whatsapp {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background-color: #25d366;
+            gap: 12px;
+            background: linear-gradient(135deg, #25d366, #1ebc57);
             color: white;
-            padding: 14px 28px;
-            border-radius: 30px;
+            padding: 16px 32px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            font-size: 1rem;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-whatsapp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.6s;
+        }
+
+        .btn-whatsapp:hover::before {
+            left: 100%;
         }
 
         .btn-whatsapp:hover {
-            background-color: #1ebc57;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
         }
 
-        .hero-image {
+        .hero-image-wrapper {
             position: relative;
-            animation: float 4s ease-in-out infinite;
+            animation: floatSlow 4s ease-in-out infinite;
         }
 
-        .flower-decoration {
+        .hero-img-perfil {
             width: 320px;
             height: 320px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--rosa-suave), var(--rosa-medio));
+            object-fit: cover;
+            border: 8px solid white;
+            box-shadow: 0 15px 35px rgba(184, 91, 117, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .hero-img-perfil:hover {
+            transform: scale(1.03) rotate(1deg);
+        }
+
+        .hero-flower-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(184, 91, 117, 0.2);
-            font-size: 5rem;
-            color: white;
+            font-size: 1.8rem;
+            color: var(--rosa-escuro);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            animation: spinSlow 12s linear infinite;
         }
 
-        /* Produtos / Galeria */
+        /* Catalogo de Produtos */
         .catalog {
-            padding: 4rem 8%;
+            padding: 5rem 8%;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
         .section-title {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             color: var(--rosa-escuro);
             margin-bottom: 0.5rem;
         }
 
         .section-subtitle {
             color: #777;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
         }
 
         .grid-produtos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 35px;
         }
 
         .card-produto {
             background: var(--fundo-card);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid #f2d6dc;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
-            animation: fadeIn 0.8s ease forwards;
+            border-radius: 20px;
+            padding: 18px;
+            border: 1px solid #fcebf0;
+            box-shadow: 0 8px 20px rgba(184, 91, 117, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card-produto:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(184, 91, 117, 0.15);
+            transform: translateY(-12px);
+            box-shadow: 0 18px 35px rgba(184, 91, 117, 0.18);
+            border-color: var(--rosa-medio);
         }
 
-        .card-img {
+        .card-img-box {
             width: 100%;
-            height: 220px;
-            background-color: #fcebf0;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--rosa-escuro);
-            font-size: 3rem;
-            margin-bottom: 15px;
+            height: 240px;
+            border-radius: 14px;
             overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .card-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .card-produto:hover .card-img-box img {
+            transform: scale(1.1);
         }
 
         .card-produto h3 {
@@ -220,34 +319,39 @@
         .card-produto p {
             font-size: 0.9rem;
             color: #777;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            line-height: 1.4;
         }
 
         .btn-card {
             display: inline-block;
-            width: 100%;
-            padding: 10px 0;
-            background-color: var(--rosa-claro);
+            padding: 12px 0;
+            background: var(--rosa-clarissimo);
             color: var(--rosa-escuro);
-            border: 1px solid var(--rosa-medio);
-            border-radius: 20px;
+            border: 1px solid var(--rosa-suave);
+            border-radius: 25px;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .btn-card:hover {
-            background-color: var(--rosa-escuro);
+            background: var(--rosa-escuro);
             color: white;
+            border-color: var(--rosa-escuro);
+            box-shadow: 0 6px 15px rgba(184, 91, 117, 0.3);
         }
 
         /* Sobre e Contato */
         .about-contact {
-            background-color: white;
-            padding: 4rem 8%;
-            margin-top: 3rem;
-            border-radius: 30px 30px 0 0;
+            background: white;
+            padding: 5rem 8%;
+            margin-top: 4rem;
+            border-radius: 40px 40px 0 0;
             text-align: center;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 2;
         }
 
         .contact-info {
@@ -255,7 +359,7 @@
             justify-content: center;
             gap: 40px;
             flex-wrap: wrap;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
 
         .info-item {
@@ -263,44 +367,82 @@
             align-items: center;
             gap: 12px;
             font-size: 1.1rem;
+            background: var(--rosa-clarissimo);
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid var(--rosa-claro);
+            transition: transform 0.3s;
+        }
+
+        .info-item:hover {
+            transform: translateY(-3px);
         }
 
         .info-item i {
             color: var(--rosa-escuro);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
         }
 
         /* Botão Flutuante do WhatsApp */
         .whatsapp-float {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
             background-color: #25d366;
             color: white;
             border-radius: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 32px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
             z-index: 1000;
             text-decoration: none;
+            animation: pulseGreen 2s infinite;
             transition: transform 0.3s;
         }
 
         .whatsapp-float:hover {
-            transform: scale(1.1);
+            transform: scale(1.12) rotate(5deg);
         }
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 22px;
             background-color: white;
             font-size: 0.85rem;
-            color: #aaa;
-            border-top: 1px solid #eee;
+            color: #888;
+            border-top: 1px solid #f2f2f2;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Keyframes das Animações */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulseSoft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(0.98); }
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @media (max-width: 768px) {
@@ -312,23 +454,27 @@
             .hero-text h2 {
                 font-size: 2.2rem;
             }
-            .hero-image {
-                margin-top: 2rem;
+            .hero-image-wrapper {
+                margin-top: 2.5rem;
             }
-            .flower-decoration {
-                width: 240px;
-                height: 240px;
-                font-size: 3.5rem;
+            .hero-img-perfil {
+                width: 250px;
+                height: 250px;
             }
         }
     </style>
 </head>
 <body>
 
+    <div class="petals-container" id="petals"></div>
+
     <header>
         <div class="logo">
-            <h1>Rosetta Ateliê</h1>
-            <span>Costura Criativa <i class="fa-solid fa-spa" style="color: var(--rosa-escuro);"></i></span>
+            <i class="fa-solid fa-spa" style="color: var(--rosa-escuro); font-size: 1.5rem;"></i>
+            <div>
+                <h1>Rosetta Ateliê</h1>
+                <span>Costura Criativa</span>
+            </div>
         </div>
         <nav>
             <a href="#produtos">Coleções</a>
@@ -339,58 +485,78 @@
 
     <section class="hero">
         <div class="hero-text">
-            <h2>Peças Exclusivas Feitas à Mão</h2>
-            <p>Bolsas, estojos e acessórios artesanais únicos feitos com carinho e delicadeza no Rio de Janeiro.</p>
-            <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20or%C3%A7amento." target="_blank" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp"></i> Solicite seu Orçamento
+            <div class="badge-flor">
+                <i class="fa-solid fa-flower"></i> Peças Exclusivas Feitas à Mão
+            </div>
+            <h2>Elegância e Delicadeza em Cada Detalhe</h2>
+            <p>Bolsas, estojos e acessórios artesanais confeccionados com carinho, tecidos de qualidade e estampas florais encantadoras no Rio de Janeiro.</p>
+            <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" class="btn-whatsapp">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Solicite seu Orçamento
             </a>
         </div>
-        <div class="hero-image">
-            <div class="flower-decoration">
+        <div class="hero-image-wrapper">
+            <img src="perfil.jpg" alt="Rosetta Ateliê - Foto de Perfil" class="hero-img-perfil">
+            <div class="hero-flower-icon">
                 <i class="fa-solid fa-seedling"></i>
             </div>
         </div>
     </section>
 
     <section class="catalog" id="produtos">
-        <h2 class="section-title">Nossas Criações</h2>
-        <p class="section-subtitle">Escolha o modelo perfeito para você ou para presentear</p>
+        <h2 class="section-title">Nossas Coleções</h2>
+        <p class="section-subtitle">Acessórios artesanais feitos sob medida para o seu dia a dia</p>
         
         <div class="grid-produtos">
             <div class="card-produto">
-                <div class="card-img"><i class="fa-solid fa-bag-shopping"></i></div>
-                <h3>Bolsa Garden Chic</h3>
-                <p>Estampa floral com acabamento impecável e alça ajustável.</p>
-                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Tenho%20interesse%20na%20Bolsa%20Garden%20Chic." target="_blank" class="btn-card">Pedir Orçamento</a>
+                <div>
+                    <div class="card-img-box">
+                        <img src="bolsa-garden-chic.jpg" alt="Bolsa Garden Chic">
+                    </div>
+                    <h3>Bolsa Garden Chic</h3>
+                    <p>Estampa floral com detalhes em azul e acabamento de altíssima qualidade.</p>
+                </div>
+                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Bolsa%20Garden%20Chic." target="_blank" class="btn-card">Pedir Orçamento</a>
             </div>
 
             <div class="card-produto">
-                <div class="card-img"><i class="fa-solid fa-briefcase"></i></div>
-                <h3>Bolsa Charlotte</h3>
-                <p>Design elegante com combinações neutras e espaço interno excelente.</p>
-                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Tenho%20interesse%20na%20Bolsa%20Charlotte." target="_blank" class="btn-card">Pedir Orçamento</a>
+                <div>
+                    <div class="card-img-box">
+                        <img src="bolsa-charlotte.jpg" alt="Bolsa Charlotte">
+                    </div>
+                    <h3>Bolsa Charlotte</h3>
+                    <p>Design moderno com combinações de couro sintético e estampa exclusiva.</p>
+                </div>
+                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20Bolsa%20Charlotte." target="_blank" class="btn-card">Pedir Orçamento</a>
             </div>
 
             <div class="card-produto">
-                <div class="card-img"><i class="fa-solid fa-box-archive"></i></div>
-                <h3>Clutch & Estojos</h3>
-                <p>Práticos para organização diária, maquiagem e material de estudo.</p>
-                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Tenho%20interesse%20nas%20Clutches%20e%20Estojos." target="_blank" class="btn-card">Pedir Orçamento</a>
+                <div>
+                    <div class="card-img-box">
+                        <img src="clutch-estojos.jpg" alt="Clutches e Estojos">
+                    </div>
+                    <h3>Clutches & Estojos</h3>
+                    <p>Práticos para maquiagem, itens pessoais ou uso escolar com zíper duplo.</p>
+                </div>
+                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20Clutches%20e%20Estojos." target="_blank" class="btn-card">Pedir Orçamento</a>
             </div>
 
             <div class="card-produto">
-                <div class="card-img"><i class="fa-solid fa-suitcase"></i></div>
-                <h3>Mochilas & Necessaires</h3>
-                <p>Acessórios sob medida para acompanhar suas rotinas e viagens.</p>
-                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Tenho%20interesse%20nas%20Mochilas%20e%20Necessaires." target="_blank" class="btn-card">Pedir Orçamento</a>
+                <div>
+                    <div class="card-img-box">
+                        <img src="mochilas-necessaires.jpg" alt="Mochilas e Necessaires">
+                    </div>
+                    <h3>Mochilas & Necessaires</h3>
+                    <p>Espaço e leveza para organizar seus pertences com elegância e praticidade.</p>
+                </div>
+                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20as%20Mochilas%20e%20Necessaires." target="_blank" class="btn-card">Pedir Orçamento</a>
             </div>
         </div>
     </section>
 
     <section class="about-contact" id="sobre">
         <h2 class="section-title">Sobre o Rosetta Ateliê</h2>
-        <p style="max-width: 600px; margin: 10px auto 30px; color: #666;">
-            Cada peça é confeccionada manualmente garantindo alta durabilidade, exclusividade e afeto em cada ponto de costura.
+        <p style="max-width: 620px; margin: 12px auto 0; color: #666; line-height: 1.6;">
+            Trabalho artesanal feito com dedicação e carinho em cada ponto. Desenvolvemos peças sob encomenda para transformar a sua rotina com utilidade e beleza.
         </p>
 
         <div class="contact-info" id="contato">
@@ -405,7 +571,7 @@
         </div>
     </section>
 
-    <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es." class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento." class="whatsapp-float" target="_blank" title="Fale pelo WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
@@ -413,5 +579,24 @@
         <p>&copy; Rosetta Ateliê | Costura Criativa. Todos os direitos reservados.</p>
     </footer>
 
+    <script>
+        function createPetals() {
+            const container = id => document.getElementById(id);
+            const petalsContainer = container('petals');
+            const icons = ['🌸', '🌺', '✨', '🍃'];
+            
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.innerText = icons[Math.floor(Math.random() * icons.length)];
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 5 + 7) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                petal.style.fontSize = (Math.random() * 10 + 14) + 'px';
+                petalsContainer.appendChild(petal);
+            }
+        }
+        createPetals();
+    </script>
 </body>
 </html>
