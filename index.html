@@ -33,7 +33,7 @@
             position: relative;
         }
 
-        /* Fundo com Pétalas Animadas */
+        /* Container de Pétalas Flutuantes */
         .petals-container {
             position: fixed;
             top: 0;
@@ -68,9 +68,9 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Header */
+        /* Header / Barra de Navegação */
         header {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
@@ -102,10 +102,15 @@
             display: block;
         }
 
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         nav a {
             text-decoration: none;
             color: var(--texto);
-            margin-left: 22px;
             font-weight: 500;
             position: relative;
             transition: color 0.3s;
@@ -128,6 +133,28 @@
 
         nav a:hover {
             color: var(--rosa-escuro);
+        }
+
+        /* Botão de Música no Header */
+        .btn-music-toggle {
+            background: var(--rosa-claro);
+            color: var(--rosa-escuro);
+            border: 1px solid var(--rosa-medio);
+            padding: 7px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-music-toggle:hover {
+            background: var(--rosa-escuro);
+            color: white;
+            transform: scale(1.05);
         }
 
         /* Hero / Destaque Principal */
@@ -174,13 +201,19 @@
             line-height: 1.6;
         }
 
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
         .btn-whatsapp {
             display: inline-flex;
             align-items: center;
             gap: 12px;
             background: linear-gradient(135deg, #25d366, #1ebc57);
             color: white;
-            padding: 16px 32px;
+            padding: 15px 30px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
@@ -191,24 +224,29 @@
             overflow: hidden;
         }
 
-        .btn-whatsapp::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.6s;
-        }
-
-        .btn-whatsapp:hover::before {
-            left: 100%;
-        }
-
         .btn-whatsapp:hover {
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45);
+        }
+
+        .btn-instagram-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: white;
+            padding: 15px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 8px 25px rgba(220, 39, 67, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .btn-instagram-hero:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(220, 39, 67, 0.4);
         }
 
         .hero-image-wrapper {
@@ -247,7 +285,7 @@
             animation: spinSlow 12s linear infinite;
         }
 
-        /* Catalogo de Produtos */
+        /* Catálogo de Produtos */
         .catalog {
             padding: 5rem 8%;
             text-align: center;
@@ -357,7 +395,7 @@
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 25px;
             flex-wrap: wrap;
             margin-top: 2.5rem;
         }
@@ -366,16 +404,19 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             background: var(--rosa-clarissimo);
             padding: 12px 24px;
             border-radius: 30px;
             border: 1px solid var(--rosa-claro);
-            transition: transform 0.3s;
+            text-decoration: none;
+            color: var(--texto);
+            transition: transform 0.3s, background 0.3s;
         }
 
         .info-item:hover {
             transform: translateY(-3px);
+            background: var(--rosa-claro);
         }
 
         .info-item i {
@@ -410,13 +451,19 @@
 
         footer {
             text-align: center;
-            padding: 22px;
+            padding: 25px;
             background-color: white;
             font-size: 0.85rem;
             color: #888;
             border-top: 1px solid #f2f2f2;
             position: relative;
             z-index: 2;
+        }
+
+        footer a {
+            color: var(--rosa-escuro);
+            text-decoration: none;
+            font-weight: 600;
         }
 
         /* Keyframes das Animações */
@@ -451,6 +498,9 @@
                 text-align: center;
                 padding-top: 2rem;
             }
+            .hero-buttons {
+                justify-content: center;
+            }
             .hero-text h2 {
                 font-size: 2.2rem;
             }
@@ -466,6 +516,12 @@
 </head>
 <body>
 
+    <!-- Música de Fundo Suave -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Container de Pétalas Flutuantes -->
     <div class="petals-container" id="petals"></div>
 
     <header>
@@ -480,6 +536,9 @@
             <a href="#produtos">Coleções</a>
             <a href="#sobre">Sobre</a>
             <a href="#contato">Orçamento</a>
+            <button class="btn-music-toggle" id="musicBtn" onclick="toggleMusic()">
+                <i class="fa-solid fa-music" id="musicIcon"></i> <span id="musicText">Música</span>
+            </button>
         </nav>
     </header>
 
@@ -490,9 +549,15 @@
             </div>
             <h2>Elegância e Delicadeza em Cada Detalhe</h2>
             <p>Bolsas, estojos e acessórios artesanais confeccionados com carinho, tecidos de qualidade e estampas florais encantadoras no Rio de Janeiro.</p>
-            <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Solicite seu Orçamento
-            </a>
+            
+            <div class="hero-buttons">
+                <a href="https://wa.me/5521977334424?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" class="btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Solicite seu Orçamento
+                </a>
+                <a href="https://www.instagram.com/rosettaatelie" target="_blank" class="btn-instagram-hero">
+                    <i class="fa-brands fa-instagram" style="font-size: 1.3rem;"></i> Instagram
+                </a>
+            </div>
         </div>
         <div class="hero-image-wrapper">
             <img src="perfil.jpg" alt="Rosetta Ateliê - Foto de Perfil" class="hero-img-perfil">
@@ -564,10 +629,14 @@
                 <i class="fa-solid fa-location-dot"></i>
                 <span>Rio de Janeiro - RJ</span>
             </div>
-            <div class="info-item">
+            <a href="https://wa.me/5521977334424" target="_blank" class="info-item">
                 <i class="fa-brands fa-whatsapp"></i>
                 <span>(21) 97733-4424</span>
-            </div>
+            </a>
+            <a href="https://www.instagram.com/rosettaatelie" target="_blank" class="info-item">
+                <i class="fa-brands fa-instagram"></i>
+                <span>@rosettaatelie</span>
+            </a>
         </div>
     </section>
 
@@ -576,13 +645,50 @@
     </a>
 
     <footer>
-        <p>&copy; Rosetta Ateliê | Costura Criativa. Todos os direitos reservados.</p>
+        <p>&copy; Rosetta Ateliê | Costura Criativa. Acompanhe no <a href="https://www.instagram.com/rosettaatelie" target="_blank">Instagram @rosettaatelie</a></p>
     </footer>
 
     <script>
+        /* Controle do Áudio */
+        const audio = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+        let isPlaying = false;
+
+        // Configura volume bem baixinho (15%)
+        audio.volume = 0.15;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicIcon.className = "fa-solid fa-music";
+                musicText.innerText = "Música";
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    musicIcon.className = "fa-solid fa-volume-high";
+                    musicText.innerText = "Pausar";
+                    isPlaying = true;
+                }).catch(e => console.log("O navegador bloqueou a reprodução automática."));
+            }
+        }
+
+        // Tenta iniciar a música ao primeiro clique na página
+        document.addEventListener('click', function startAudioOnInteraction() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    audio.volume = 0.15;
+                    musicIcon.className = "fa-solid fa-volume-high";
+                    musicText.innerText = "Pausar";
+                    isPlaying = true;
+                }).catch(() => {});
+            }
+            document.removeEventListener('click', startAudioOnInteraction);
+        }, { once: true });
+
+        /* Pétalas Flutuantes */
         function createPetals() {
-            const container = id => document.getElementById(id);
-            const petalsContainer = container('petals');
+            const petalsContainer = document.getElementById('petals');
             const icons = ['🌸', '🌺', '✨', '🍃'];
             
             for (let i = 0; i < 20; i++) {
